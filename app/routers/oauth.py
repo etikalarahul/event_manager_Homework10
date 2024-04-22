@@ -25,7 +25,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import timedelta
 from app.dependencies import get_settings  # Custom configuration settings loader
-from app.schemas.token_schemas import Token  # Import the Token schema from our application schemas
+from app.schemas.token_schema import Token  # Import the Token schema from our application schemas
 from app.utils.common import authenticate_user, create_access_token
 
 # Load application settings
