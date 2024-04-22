@@ -159,6 +159,15 @@ async def test_unlock_user_account(db_session, locked_user):
     is_locked = await UserService.is_account_locked(db_session, locked_user.username)
     assert not is_locked, "The account should be unlocked after calling unlock_user_account."
 
+async def test_create_user_with_invalid_data_returns_error_with_caps_invalid_username(db_session):
+    user_data = {
+        "username": " US ",  # Too short
+        "email": "test@test.com",  # Correct email
+        "password": "ValidPassword123!",  # Correct passowrd
+    }
+    user = await UserService.create(db_session, user_data)
+    assert user is None  # Assuming service returns None on failure
+
 async def test_create_user_with_invalid_data_returns_error_with_caps_invalid_email(db_session):
     user_data = {
         "username": "valid_username ",  # Too short
