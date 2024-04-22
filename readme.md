@@ -50,7 +50,7 @@ Apart from all the links for issues and PR's mentioned above, find below the oth
 
 - Links to the closed issues: https://github.com/etikalarahul/event_manager_Homework10/issues?q=is%3Aissue+is%3Aclosed
 - Link to project image deployed to Dockerhub: https://hub.docker.com/repository/docker/etikalarahul/homework10/general
-- Link to successfull CI/CD: 
+- Link to successfull CI/CD: https://github.com/etikalarahul/event_manager_Homework10/actions/runs/8788524208/job/24116221163
 
 ## Learning from working on this project
 
