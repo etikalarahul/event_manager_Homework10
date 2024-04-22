@@ -16,7 +16,7 @@ def user_base_data():
 
 @pytest.fixture
 def user_create_data(user_base_data):
-    return {**user_base_data, "password": "SecurePassword123!"}
+    return {**user_base_data, "password": "StrongPassword123!"}
 
 @pytest.fixture
 def user_update_data():
@@ -41,7 +41,7 @@ def user_response_data():
 
 @pytest.fixture
 def login_request_data():
-    return {"username": "john_doe_123", "password": "SecurePassword123!"}
+    return {"username": "john_doe_123", "password": "StrongPassword123!"}
 
 # Tests for UserBase
 def test_user_base_valid(user_base_data):
@@ -86,3 +86,29 @@ def test_user_base_username_invalid(username, user_base_data):
     user_base_data["username"] = username
     with pytest.raises(ValidationError):
         UserBase(**user_base_data)
+
+@pytest.mark.parametrize("profile_picture_url", [
+    "https://example.com/profile.jpg",
+    "https://example.com/photos/profile.jpeg",
+    "https://www.example.com/images/profile.png"
+])
+
+def test_user_base_profile_picture_url_valid(profile_picture_url, user_base_data):
+    user_base_data["profile_picture_url"] = profile_picture_url
+    user = UserBase(**user_base_data)
+    assert user.profile_picture_url == profile_picture_url
+
+@pytest.mark.parametrize("profile_picture_url", [
+    "http://example.com/profile.jpg",  # Non-HTTPS URL
+    "https://example.com/profile.bmp",  # Invalid file extension
+    "https://example.com/profile.jpg/not",  # URL not pointing directly to an image
+    None
+])
+def test_user_base_profile_picture_url_invalid(profile_picture_url, user_base_data):
+    user_base_data["profile_picture_url"] = profile_picture_url
+    if profile_picture_url is None:
+        user = UserBase(**user_base_data)
+        assert user.profile_picture_url == profile_picture_url
+    else:
+        with pytest.raises(ValidationError):
+            UserBase(**user_base_data)
