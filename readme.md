@@ -6,7 +6,7 @@ After setting up and following the guide, fastapi is up and running.
 
 ## Setup and Preliminary Steps
 Make sure the github actions and docker hub tokens are updated accordingly and image build is triggered when needed.
-Below is the change that address it: 
+Below is the change that address it: https://github.com/etikalarahul/event_manager_Homework10/blob/main/.github/workflows/production.yml
 
 
 ## Testing and Database Management
