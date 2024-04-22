@@ -16,7 +16,7 @@ def user_base_data():
 
 @pytest.fixture
 def user_create_data(user_base_data):
-    return {**user_base_data, "password": "StrongPassword123!"}
+    return {**user_base_data, "password": "SecurePassword123!"}
 
 @pytest.fixture
 def user_update_data():
@@ -41,7 +41,7 @@ def user_response_data():
 
 @pytest.fixture
 def login_request_data():
-    return {"username": "john_doe_123", "password": "StrongPassword123!"}
+    return {"username": "john_doe_123", "password": "SecurePassword123!"}
 
 # Tests for UserBase
 def test_user_base_valid(user_base_data):

@@ -100,10 +100,6 @@ class UserBase(BaseModel):
         if not re.search(r"\.(jpg|jpeg|png)$", parsed_url.path):
             raise ValueError("Profile picture URL must point to a valid image file (JPEG, PNG).")
         return v
-    
-    @validator('email', pre=True)
-    def normalize_email(cls, v):
-        return v.strip().lower() if v else None
 
     class Config:
         json_schema_extra = {
@@ -123,7 +119,7 @@ class UserCreate(UserBase):
         ...,
         min_length=8,
         description="A strong password for the user's account. Must be at least 8 characters long and include uppercase and lowercase letters, a digit, and a special character.",
-        example="StrongPassword123!"
+        example="SecurePassword123!"
     )
 
     @validator('password')
@@ -146,7 +142,7 @@ class UserCreate(UserBase):
             "example": {
                 "username": "john_doe_123",
                 "email": "john.doe@example.com",
-                "password": "StrongPassword123!",
+                "password": "SecurePassword123!",
                 "full_name": "John Doe",
                 "bio": "I am a data scientist passionate about machine learning and big data analytics.",
                 "profile_picture_url": "https://example.com/profile_pictures/jane_smith.jpg"
@@ -331,7 +327,7 @@ class LoginRequest(BaseModel):
     password: str = Field(
         ...,
         description="Password of the user trying to login.",
-        example="StrongPassword123!"
+        example="SecurePassword123!"
     )
 
     class Config:
@@ -339,7 +335,7 @@ class LoginRequest(BaseModel):
             "description": "Model for user login request.",
             "example": {
                 "username": "john_doe_123",
-                "password": "StrongPassword123!"
+                "password": "SecurePassword123!"
             }
         }
 
