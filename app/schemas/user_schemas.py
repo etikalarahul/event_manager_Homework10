@@ -100,6 +100,10 @@ class UserBase(BaseModel):
         if not re.search(r"\.(jpg|jpeg|png)$", parsed_url.path):
             raise ValueError("Profile picture URL must point to a valid image file (JPEG, PNG).")
         return v
+    
+    @validator('email', pre=True)
+    def normalize_email(cls, v):
+        return v.strip().lower() if v else None
 
     class Config:
         json_schema_extra = {
@@ -119,7 +123,7 @@ class UserCreate(UserBase):
         ...,
         min_length=8,
         description="A strong password for the user's account. Must be at least 8 characters long and include uppercase and lowercase letters, a digit, and a special character.",
-        example="SecurePassword123!"
+        example="StrongPassword123!"
     )
 
     @validator('password')
@@ -142,7 +146,7 @@ class UserCreate(UserBase):
             "example": {
                 "username": "john_doe_123",
                 "email": "john.doe@example.com",
-                "password": "SecurePassword123!",
+                "password": "StrongPassword123!",
                 "full_name": "John Doe",
                 "bio": "I am a data scientist passionate about machine learning and big data analytics.",
                 "profile_picture_url": "https://example.com/profile_pictures/jane_smith.jpg"
@@ -176,10 +180,13 @@ class UserUpdate(BaseModel):
 
     @validator('profile_picture_url', pre=True, always=True)
     def validate_profile_picture_url(cls, v):
-        if v is not None:
-            parsed_url = urlparse(str(v))  # Convert the URL object to a string before parsing
-            if not re.search(r"\.(jpg|jpeg|png)$", parsed_url.path):
-                raise ValueError("Profile picture URL must point to a valid image file (JPEG, PNG).")
+        if v is None:
+            return v
+        parsed_url = urlparse(v)
+        if parsed_url.scheme != 'https':
+            raise ValueError("Profile picture URL must use HTTPS.")
+        if not re.search(r"\.(jpg|jpeg|png)$", parsed_url.path):
+            raise ValueError("Profile picture URL must point to a valid image file (JPEG, PNG).")
         return v
 
     class Config:
@@ -327,7 +334,7 @@ class LoginRequest(BaseModel):
     password: str = Field(
         ...,
         description="Password of the user trying to login.",
-        example="SecurePassword123!"
+        example="StrongPassword123!"
     )
 
     class Config:
@@ -335,7 +342,7 @@ class LoginRequest(BaseModel):
             "description": "Model for user login request.",
             "example": {
                 "username": "john_doe_123",
-                "password": "SecurePassword123!"
+                "password": "StrongPassword123!"
             }
         }
 
