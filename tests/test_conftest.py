@@ -41,3 +41,4 @@ async def test_user_unlock(db_session, locked_user):
     result = await db_session.execute(select(User).filter_by(email=locked_user.email))
     updated_user = result.scalars().first()
     assert not updated_user.is_locked
+
