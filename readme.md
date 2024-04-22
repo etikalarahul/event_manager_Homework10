@@ -49,7 +49,7 @@ PR Link: https://github.com/etikalarahul/event_manager_Homework10/pull/12
 Apart from all the links for issues and PR's mentioned above, find below the other links that are needed:
 
 - Links to the closed issues: https://github.com/etikalarahul/event_manager_Homework10/issues?q=is%3Aissue+is%3Aclosed
-- Link to project image deployed to Dockerhub: 
+- Link to project image deployed to Dockerhub: https://hub.docker.com/repository/docker/etikalarahul/homework10/general
 - Link to successfull CI/CD: 
 
 ## Learning from working on this project
