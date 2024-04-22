@@ -158,7 +158,7 @@ async def admin_user(db_session: AsyncSession):
     user = User(
         username="admin_user",
         email="admin@example.com",
-        hashed_password="strongpassword",
+        hashed_password="securepassword",
         role=UserRole.ADMIN,
         is_locked=False,
     )
@@ -171,7 +171,7 @@ async def manager_user(db_session: AsyncSession):
     user = User(
         username="manager_user",
         email="manager_user@example.com",
-        hashed_password="strongpassword",
+        hashed_password="securepassword",
         role=UserRole.MANAGER,
         is_locked=False,
     )
