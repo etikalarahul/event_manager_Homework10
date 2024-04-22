@@ -34,4 +34,3 @@ def startup_event():
 app.include_router(oauth.router)  # OAuth authentication routes
 # app.include_router(events.router)
 app.include_router(user_routes.router)
-
